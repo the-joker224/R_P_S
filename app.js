@@ -29,11 +29,54 @@ function playRound(playerSelection, computerSelection){
         return "It's a Tie"
     }
     else if(result == "Player"){
-        return "You won!"
+        return `You won! ${playerSelection} beats ${computerSelection}`
     }
     else{
-        return "You lost!"
+        return `You lost! ${computerSelection} beats ${playerSelection}`
     }
 }
 
-getComputerChoice()
+function getPlayerChoice(){
+    let validatedInput = false;
+    while(validatedInput == false){
+        const choice = prompt("Rock paper Scissors");
+        if(choice == null){
+            continue;
+        }
+        const choiceInLower = choice.toLowerCase();
+        if(options.includes(choiceInLower)){
+            validatedInput = true;
+            return choiceInLower;
+        }
+    }
+}
+
+
+function game(){
+    let scorePlayer = 0;
+    let scoreComputer = 0;
+    console.log("Welcome!")
+    for (let i = 0; i < 5; i++) {
+        const playerSelection = getPlayerChoice();
+        const computerSelection = getComputerChoice();
+        console.log(playRound(playerSelection, computerSelection));
+        if(checkWinner(playerSelection, computerSelection) == "Player"){
+            scorePlayer++;
+        }
+        else if(checkWinner(playerSelection, computerSelection) == "Computer"){
+            scoreComputer++;
+        }
+    }
+    console.log("Game Over")
+    if(scorePlayer > scoreComputer){
+        console.log("Player was the winner!");
+    }
+    else if(scorePlayer < scoreComputer){
+        console.log("Computer was the winner!");
+    }
+    else{
+        console.log("It's a tie!");
+    }
+}
+
+game()
